@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public interface AdvertisingService {
     ArrayList<Advertiser> getAllAdvertisers();
     ArrayList<Advertiser> getAdvertiser(String advertiserName);
-    Advertiser updateAdvertiser(Advertiser advertiser);
-    Boolean verifyTransaction(Integer transactionCost);
+    Advertiser saveOrUpdateAdvertiser(Advertiser advertiser);
+    Boolean verifyTransactionAbility(Long advertiserId, Integer transactionCost);
     ArrayList<Advertiser> deleteAdvertiser(Advertiser advertiser);
 }

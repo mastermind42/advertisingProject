@@ -6,6 +6,7 @@ import com.iheartdemo.advertising.service.AdvertisingService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class AdvertisingServiceImpl implements AdvertisingService {
@@ -26,17 +27,20 @@ public class AdvertisingServiceImpl implements AdvertisingService {
     }
 
     @Override
-    public Advertiser updateAdvertiser(Advertiser advertiser) {
-        return null;
+    public Advertiser saveOrUpdateAdvertiser(Advertiser advertiser) {
+        return advertiserRepository.save(advertiser);
     }
 
     @Override
-    public Boolean verifyTransaction(Integer transactionCost) {
-        return null;
+    public Boolean verifyTransactionAbility(Long advertiserId, Integer transactionCost) {
+        Optional<Advertiser> advertiser = advertiserRepository.findById(advertiserId);
+        if(advertiser.isEmpty()) return false;
+        else return advertiser.get().getMaxLimit() >= transactionCost;
     }
 
     @Override
     public ArrayList<Advertiser> deleteAdvertiser(Advertiser advertiser) {
-        return null;
+        advertiserRepository.delete(advertiser);
+        return advertiserRepository.findAll();
     }
 }

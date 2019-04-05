@@ -14,13 +14,13 @@ public class AdvertisingApplication {
         SpringApplication.run(AdvertisingApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner runner(AdvertiserRepository advertiserRepository) {
-        return args -> {
-            advertiserRepository.save(new Advertiser("Advertiser 1", "Primary Contact 1", 100));
-            advertiserRepository.save(new Advertiser("Advertiser 2", "Primary Contact 2", 50000));
-            advertiserRepository.save(new Advertiser("Advertiser 3", "Primary Contact 3", 999));
-        };
-    }
+//    @Bean
+//    CommandLineRunner runner(AdvertiserRepository advertiserRepository) {
+//        return args -> {
+//            advertiserRepository.save(new Advertiser("Advertiser 1", "Primary Contact 1", 100));
+//            advertiserRepository.save(new Advertiser("Advertiser 2", "Primary Contact 2", 50000));
+//            advertiserRepository.save(new Advertiser("Advertiser 3", "Primary Contact 3", 999));
+//        };
+//    }
 
 }

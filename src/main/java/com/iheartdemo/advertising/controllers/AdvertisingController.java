@@ -37,8 +37,26 @@ public class AdvertisingController {
 
     @PutMapping("/updateAdvertiser")
     Advertiser updateAdvertiser(@RequestBody Advertiser advertiser) {
-        return advertisingService.updateAdvertiser(advertiser);
+        return advertisingService.saveOrUpdateAdvertiser(advertiser);
     }
 
-    
+    @PostMapping("/saveAdvertiser")
+    Advertiser saveAdvertiser(@RequestParam("advertiserName") String advertiserName,
+                              @RequestParam("priamryContactName") String primaryContactName,
+                              @RequestParam("maxLimit") Integer maxLimit) {
+        return advertisingService.saveOrUpdateAdvertiser(new Advertiser(advertiserName, primaryContactName, maxLimit))
+    }
+
+    @DeleteMapping("/deleteAdvertiser")
+    public ArrayList<Advertiser> deleteAdvertiser(@RequestBody Advertiser advertiser) {
+        return advertisingService.deleteAdvertiser(advertiser);
+    }
+
+    @PostMapping("/verifyTransactionAbility")
+    public Boolean verifyTransactionAbility(@RequestParam("advertiserId") Long advertiserId,
+                                            @RequestParam("transactionCost") Integer cost) {
+        return advertisingService.verifyTransactionAbility(advertiserId, cost);
+    }
+
+
 }
