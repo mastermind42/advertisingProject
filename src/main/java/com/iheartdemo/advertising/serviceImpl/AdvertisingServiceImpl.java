@@ -26,7 +26,7 @@ public class AdvertisingServiceImpl implements AdvertisingService {
     }
 
     @Override
-    public Advertiser updateAdvertiser() {
+    public Advertiser updateAdvertiser(Advertiser advertiser) {
         return null;
     }
 
@@ -36,7 +36,7 @@ public class AdvertisingServiceImpl implements AdvertisingService {
     }
 
     @Override
-    public ArrayList<Advertiser> deleteAdvertiser() {
+    public ArrayList<Advertiser> deleteAdvertiser(Advertiser advertiser) {
         return null;
     }
 }
