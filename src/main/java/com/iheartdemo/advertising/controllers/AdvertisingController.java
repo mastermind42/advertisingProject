@@ -42,9 +42,14 @@ public class AdvertisingController {
 
     @PostMapping("/saveAdvertiser")
     Advertiser saveAdvertiser(@RequestParam("advertiserName") String advertiserName,
-                              @RequestParam("priamryContactName") String primaryContactName,
+                              @RequestParam("primaryContactName") String primaryContactName,
                               @RequestParam("maxLimit") Integer maxLimit) {
-        return advertisingService.saveOrUpdateAdvertiser(new Advertiser(advertiserName, primaryContactName, maxLimit))
+//        return advertisingService.saveOrUpdateAdvertiser(new Advertiser(advertiserName, primaryContactName, maxLimit))
+        return advertisingService.saveOrUpdateAdvertiser(Advertiser.builder()
+                .advertiserName(advertiserName)
+                .primaryContactName(primaryContactName)
+                .maxLimit(maxLimit)
+                .build());
     }
 
     @DeleteMapping("/deleteAdvertiser")

@@ -1,14 +1,12 @@
 package com.iheartdemo.advertising.models;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity @Getter @Setter @NoArgsConstructor
+@Entity @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Advertiser {
 
     @Id @GeneratedValue
@@ -18,9 +16,4 @@ public class Advertiser {
     private String primaryContactName;
     private Integer maxLimit;
 
-    public Advertiser(String advertiserName, String primaryContactName, Integer maxLimit) {
-        this.advertiserName = advertiserName;
-        this.primaryContactName = primaryContactName;
-        this.maxLimit = maxLimit;
-    }
 }
