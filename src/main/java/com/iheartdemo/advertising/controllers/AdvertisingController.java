@@ -34,4 +34,11 @@ public class AdvertisingController {
     ArrayList<Advertiser> getAdveriserByName(@RequestParam("name") String name) {
         return advertisingService.getAdvertiser(name);
     }
+
+    @PutMapping("/updateAdvertiser")
+    Advertiser updateAdvertiser(@RequestBody Advertiser advertiser) {
+        return advertisingService.updateAdvertiser(advertiser);
+    }
+
+    
 }
