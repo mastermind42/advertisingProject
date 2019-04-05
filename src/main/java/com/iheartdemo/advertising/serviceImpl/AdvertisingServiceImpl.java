@@ -27,8 +27,9 @@ public class AdvertisingServiceImpl implements AdvertisingService {
     }
 
     @Override
-    public Advertiser saveOrUpdateAdvertiser(Advertiser advertiser) {
-        return advertiserRepository.save(advertiser);
+    public ArrayList<Advertiser> saveOrUpdateAdvertiser(Advertiser advertiser) {
+        advertiserRepository.save(advertiser);
+        return advertiserRepository.findAll();
     }
 
     @Override

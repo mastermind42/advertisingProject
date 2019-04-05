@@ -36,12 +36,12 @@ public class AdvertisingController {
     }
 
     @PutMapping("/updateAdvertiser")
-    Advertiser updateAdvertiser(@RequestBody Advertiser advertiser) {
+    ArrayList<Advertiser> updateAdvertiser(@RequestBody Advertiser advertiser) {
         return advertisingService.saveOrUpdateAdvertiser(advertiser);
     }
 
     @PostMapping("/saveAdvertiser")
-    Advertiser saveAdvertiser(@RequestParam("advertiserName") String advertiserName,
+    ArrayList<Advertiser> saveAdvertiser(@RequestParam("advertiserName") String advertiserName,
                               @RequestParam("primaryContactName") String primaryContactName,
                               @RequestParam("maxLimit") Integer maxLimit) {
 //        return advertisingService.saveOrUpdateAdvertiser(new Advertiser(advertiserName, primaryContactName, maxLimit))
