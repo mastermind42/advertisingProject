@@ -34,8 +34,7 @@ public class AdvertisingServiceImpl implements AdvertisingService {
     @Override
     public Boolean verifyTransactionAbility(Long advertiserId, Integer transactionCost) {
         Optional<Advertiser> advertiser = advertiserRepository.findById(advertiserId);
-        if(advertiser.isEmpty()) return false;
-        else return advertiser.get().getMaxLimit() >= transactionCost;
+        return advertiser.filter(value -> value.getMaxLimit() >= transactionCost).isPresent();
     }
 
     @Override
