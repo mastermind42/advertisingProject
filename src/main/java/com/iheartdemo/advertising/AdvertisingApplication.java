@@ -1,31 +1,37 @@
 package com.iheartdemo.advertising;
 
-import com.iheartdemo.advertising.models.Advertiser;
 import com.iheartdemo.advertising.repository.AdvertiserRepository;
-import org.springframework.boot.CommandLineRunner;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.io.IOException;
+import java.io.Reader;
 
 @SpringBootApplication
 public class AdvertisingApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(AdvertisingApplication.class, args);
+    private static SqlSessionFactory factory = null;
+
+    public static void main(String[] args) throws IOException {
+        String resource = "mybatis-config.xml";
+        Reader reader = null;
+
+        reader = Resources.getResourceAsReader(resource);
+        factory = new SqlSessionFactoryBuilder().build(reader);
+        factory.getConfiguration().addMapper(AdvertiserRepository.class);
+        reader.close();
+
+        try (SqlSession session = factory.openSession()) {
+            System.out.println("open!");
+            SpringApplication.run(AdvertisingApplication.class, args);
+        }
+
     }
 
-    @Bean
-    CommandLineRunner runner(AdvertiserRepository advertiserRepository) {
-        return args -> {
-            advertiserRepository.save(Advertiser.builder().advertiserName("Advertiser 1").primaryContactName("Priamry Contact 1").maxLimit(100).build());
-            advertiserRepository.save(Advertiser.builder().advertiserName("Advertiser 2").primaryContactName("Priamry Contact 2").maxLimit(50000).build());
-            advertiserRepository.save(Advertiser.builder().advertiserName("Advertiser 3").primaryContactName("Priamry Contact 3").maxLimit(999).build());
-        };
-    }
+
+
 }

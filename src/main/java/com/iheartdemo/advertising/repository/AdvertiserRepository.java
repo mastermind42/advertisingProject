@@ -1,14 +1,13 @@
 package com.iheartdemo.advertising.repository;
 
 import com.iheartdemo.advertising.models.Advertiser;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.ArrayList;
 
-@Repository
-public interface AdvertiserRepository extends CrudRepository<Advertiser, Long> {
+@Mapper
+public interface AdvertiserRepository {
+    @Select("SELECT * FROM Advertiser")
     ArrayList<Advertiser> findAll();
-    ArrayList<Advertiser> findAllByAdvertiserName(String advertiserName);
-
 }
