@@ -2,17 +2,15 @@ package com.iheartdemo.advertising;
 
 import com.iheartdemo.advertising.models.Advertiser;
 import com.iheartdemo.advertising.repository.AdvertiserRepository;
+import org.apache.ibatis.type.MappedTypes;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+@MappedTypes(Advertiser.class)
+@MapperScan("com.iheartdemo.advertising.mapper")
 @SpringBootApplication
 public class AdvertisingApplication {
 

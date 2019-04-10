@@ -1,8 +1,8 @@
 package com.iheartdemo.advertising.controllers;
 
+import com.iheartdemo.advertising.mappers.AdvertiserMapper;
 import com.iheartdemo.advertising.models.Advertiser;
 import com.iheartdemo.advertising.service.AdvertisingService;
-import com.iheartdemo.advertising.serviceImpl.AdvertisingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +14,12 @@ public class AdvertisingController {
 
     private final AdvertisingService advertisingService;
 
+    private AdvertiserMapper advertiserMapper;
+
     @Autowired
-    public AdvertisingController(AdvertisingService advertisingService) {
+    public AdvertisingController(AdvertisingService advertisingService, AdvertiserMapper advertiserMapper) {
         this.advertisingService = advertisingService;
+        this.advertiserMapper = advertiserMapper;
     }
 
     //todo delete this endpoint
@@ -27,12 +30,14 @@ public class AdvertisingController {
 
     @GetMapping("/getAllAdvertisers")
     ArrayList<Advertiser> getAllAdvertisers() {
-        return advertisingService.getAllAdvertisers();
+        return advertiserMapper.getAllAdvertisers();
+//        return advertisingService.getAllAdvertisers();
     }
 
     @GetMapping("/getAdvertiserByName")
     ArrayList<Advertiser> getAdveriserByName(@RequestParam("name") String name) {
-        return advertisingService.getAdvertiser(name);
+        return advertiserMapper.getAdvertiserByName(name);
+//        return advertisingService.getAdvertiser(name);
     }
 
     @PutMapping("/updateAdvertiser")
