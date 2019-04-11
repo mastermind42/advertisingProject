@@ -1,8 +1,7 @@
 package com.iheartdemo.advertising.controllers;
 
-import com.iheartdemo.advertising.mappers.AdvertiserMapper;
 import com.iheartdemo.advertising.models.Advertiser;
-import com.iheartdemo.advertising.service.AdvertisingService;
+import com.iheartdemo.advertising.services.AdvertiserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,44 +11,33 @@ import java.util.ArrayList;
 @RequestMapping("/api/advertiser")
 public class AdvertisingController {
 
-    private final AdvertisingService advertisingService;
-
-    private AdvertiserMapper advertiserMapper;
+    private AdvertiserService service;
 
     @Autowired
-    public AdvertisingController(AdvertisingService advertisingService, AdvertiserMapper advertiserMapper) {
-        this.advertisingService = advertisingService;
-        this.advertiserMapper = advertiserMapper;
-    }
-
-    //todo delete this endpoint
-    @GetMapping("/test")
-    String test() {
-        return "Hello World!";
+    public AdvertisingController(AdvertiserService service) {
+        this.service = service;
     }
 
     @GetMapping("/getAllAdvertisers")
-    ArrayList<Advertiser> getAllAdvertisers() {
-        return advertiserMapper.getAllAdvertisers();
-//        return advertisingService.getAllAdvertisers();
+    public ArrayList<Advertiser> getAllAdvertisers() {
+        return service.getAllAdvertisers();
     }
 
     @GetMapping("/getAdvertiserByName")
-    ArrayList<Advertiser> getAdveriserByName(@RequestParam("name") String name) {
-        return advertiserMapper.getAdvertiserByName(name);
-//        return advertisingService.getAdvertiser(name);
+    public ArrayList<Advertiser> getAdvertiserByName(@RequestParam("name") String name) {
+        return service.getAdvertiserByName(name);
     }
 
     @PutMapping("/updateAdvertiser")
-    Advertiser updateAdvertiser(@RequestBody Advertiser advertiser) {
-        return advertisingService.saveOrUpdateAdvertiser(advertiser);
+    public ArrayList<Advertiser> updateAdvertiser(@RequestBody Advertiser advertiser) {
+        return service.updateAdvertiser(advertiser);
     }
 
     @PostMapping("/saveAdvertiser")
-    Advertiser saveAdvertiser(@RequestParam("advertiserName") String advertiserName,
-                              @RequestParam("primaryContactName") String primaryContactName,
-                              @RequestParam("maxLimit") Integer maxLimit) {
-        return advertisingService.saveOrUpdateAdvertiser(Advertiser.builder()
+    public ArrayList<Advertiser> saveAdvertiser(@RequestParam("advertiserName") String advertiserName,
+                                         @RequestParam("primaryContactName") String primaryContactName,
+                                         @RequestParam("maxLimit") Integer maxLimit) {
+        return service.saveAdvertiser(Advertiser.builder()
                 .advertiserName(advertiserName)
                 .primaryContactName(primaryContactName)
                 .maxLimit(maxLimit)
@@ -58,14 +46,13 @@ public class AdvertisingController {
 
     @DeleteMapping("/deleteAdvertiser")
     public ArrayList<Advertiser> deleteAdvertiser(@RequestBody Advertiser advertiser) {
-        return advertisingService.deleteAdvertiser(advertiser);
+        return service.deleteAdvertiser(advertiser);
     }
 
     @PostMapping("/verifyTransactionAbility")
     public Boolean verifyTransactionAbility(@RequestParam("advertiserId") Long advertiserId,
                                             @RequestParam("transactionCost") Integer cost) {
-        return advertisingService.verifyTransactionAbility(advertiserId, cost);
+        return service.verifyTransactionAbility(advertiserId, cost);
     }
-
 
 }

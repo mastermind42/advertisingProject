@@ -1,0 +1,1 @@
+insert into  advertiser values (default , 'ads1', 'adscn1', 100);
