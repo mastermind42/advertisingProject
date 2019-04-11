@@ -1,7 +1,6 @@
 package com.iheartdemo.advertising.services;
 
 import com.iheartdemo.advertising.models.Advertiser;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,11 +11,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-@Slf4j
+//@Slf4j
 public class AdvertiserServiceTest {
 
     // Mocks the DB layer and tests the service layer.
@@ -43,10 +40,10 @@ public class AdvertiserServiceTest {
         if(foundAdvertiser == null) Assert.fail("Failed to get test person.");
 
         Assert.assertEquals(initialDBSize + 1, advertisers.size());
-        log.info("database contains correct number of advertisers");
+//        log.info("database contains correct number of advertisers");
 
         Assert.assertEquals(foundAdvertiser, testPerson);
-        log.info("database contains test advertiser");
+//        log.info("database contains test advertiser");
     }
 
     @Test
@@ -54,7 +51,7 @@ public class AdvertiserServiceTest {
         ArrayList<Advertiser> advertiserByName = service.getAdvertiserByName(testPerson.getAdvertiserName());
 
         Assert.assertEquals(testPerson, advertiserByName.get(0));
-        log.info("database found correct advertiser");
+//        log.info("database found correct advertiser");
     }
 
     @Test
@@ -68,7 +65,6 @@ public class AdvertiserServiceTest {
                 .orElse(null);
 
         if(updatedAdvertiser == null) Assert.fail("Failed to get test person.");
-        System.out.println(updatedAdvertiser);
 
         Assert.assertEquals(updatedAdvertiser, updateTestPerson);
     }
@@ -80,10 +76,10 @@ public class AdvertiserServiceTest {
                 .equals(advertiser.getId()))
                 .findAny()
                 .ifPresent(ignore -> Assert.fail("failed to delete advertiser"));
-        log.info("Deleted advertiser correctly");
+//        log.info("Deleted advertiser correctly");
 
         Assert.assertEquals(initialDBSize, (Integer)advertisers.size());
-        log.info("Database size equivalent to initial size");
+//        log.info("Database size equivalent to initial size");
     }
 
     @Test
