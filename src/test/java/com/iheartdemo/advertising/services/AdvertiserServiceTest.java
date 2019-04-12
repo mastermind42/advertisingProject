@@ -16,7 +16,6 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-@Slf4j
 public class AdvertiserServiceTest {
 
     // Mocks the DB layer and tests the service layer.
@@ -40,13 +39,11 @@ public class AdvertiserServiceTest {
         ArrayList<Advertiser> advertisers = service.getAllAdvertisers();
         Advertiser foundAdvertiser = advertisers.stream().filter(advertiser -> testPerson.getId().equals(advertiser.getId())).findAny().orElse(null);
 
-        if(foundAdvertiser == null) Assert.fail("Failed to get test person.");
+        if (foundAdvertiser == null) Assert.fail("Failed to get test person.");
 
         Assert.assertEquals(initialDBSize + 1, advertisers.size());
-        log.info("database contains correct number of advertisers");
 
         Assert.assertEquals(foundAdvertiser, testPerson);
-        log.info("database contains test advertiser");
     }
 
     @Test
@@ -54,7 +51,6 @@ public class AdvertiserServiceTest {
         ArrayList<Advertiser> advertiserByName = service.getAdvertiserByName(testPerson.getAdvertiserName());
 
         Assert.assertEquals(testPerson, advertiserByName.get(0));
-        log.info("database found correct advertiser");
     }
 
     @Test
@@ -67,7 +63,7 @@ public class AdvertiserServiceTest {
                 .findAny()
                 .orElse(null);
 
-        if(updatedAdvertiser == null) Assert.fail("Failed to get test person.");
+        if (updatedAdvertiser == null) Assert.fail("Failed to get test person.");
         System.out.println(updatedAdvertiser);
 
         Assert.assertEquals(updatedAdvertiser, updateTestPerson);
@@ -80,10 +76,8 @@ public class AdvertiserServiceTest {
                 .equals(advertiser.getId()))
                 .findAny()
                 .ifPresent(ignore -> Assert.fail("failed to delete advertiser"));
-        log.info("Deleted advertiser correctly");
 
-        Assert.assertEquals(initialDBSize, (Integer)advertisers.size());
-        log.info("Database size equivalent to initial size");
+        Assert.assertEquals(initialDBSize, (Integer) advertisers.size());
     }
 
     @Test
